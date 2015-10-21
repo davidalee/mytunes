@@ -1,0 +1,15 @@
+Whiteboard
+
+1. Queueing a song
+
+  Song.js
+  // Create a method on Song called enqueue
+    // Adds 'this' to app.songQueue
+  
+  SongQueue.js
+  // Create an array and implement it as a queue
+  // Create a method for queueing a song that takes a parameter song
+    // Adds the song passed as arg to the storage array
+  // Create a method for dequeueing a song that is initiated when app.currentSong is over or changes
+    // If queue is not empty
+      // Calls .shift() on storage array, sets app.currentSong to shifted element
