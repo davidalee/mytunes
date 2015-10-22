@@ -3,8 +3,13 @@ var Songs = Backbone.Collection.extend({
 
   model: SongModel,
 
-  enqueue: function (song) {
-    this.trigger('enqueue', this);
-  }
+  // enqueue: function (song) {
+  //   this.trigger('enqueue', this);
+  // }
+
+  // playFirst: function () {
+  //   console.log('playFirst trigger sent from SongQueue');
+  //   this.trigger('playFirst', this);
+  // }
   
 });
