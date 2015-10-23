@@ -12,50 +12,29 @@ var AppModel = Backbone.Model.extend({
     end up referring to the window. That's just what happens with all JS events. The handlers end up
     getting called from the window (unless we override it, as we do here). */
 
-
-    // 'play' listener
     params.library.on('play', function(song){
-      // if( !this.get('currentSong').get('artist') ){
         this.set('currentSong', song);
-        console.log('current song is', song);
-      // } else {
-      //   song.enqueue();
-      //   this.get('songQueue').add(song);
-      // }
     }, this);
 
-    // 'enqueue' listener
     params.library.on('enqueue', function(song){
-      this.get('songQueue').push(song);
+      this.get('songQueue').add(song);
 
+      // Will automatically play enqueued song if nothing is currently playing
       if( !this.get('currentSong').get('artist') ){
         this.get('songQueue').trigger('playFirst');
       }
-
-      console.log(this.get('songQueue').models);
     }, this);
 
-    // 'playFirst' listener
     this.get('songQueue').on('playFirst', function(){
-      console.log('playFirst heard');
-      console.log(this.get('songQueue').models);
-      // debugger;
-      var nextSong = this.get('songQueue').shift();
-      nextSong.play();
+      if( this.get('songQueue').length ){
+        this.get('songQueue').at(0).play();
+      }
     }, this);
 
-    // params.library.on('dequeue', function(){
-    //   nextSong.play();
-    // })
-
-    // 'ended' listener
-    // debugger;
     params.library.on('ended', function(){
-      console.log('ended trigger heard from AppModel');
-      // debugger;
+      this.get('songQueue').shift();
       this.get('songQueue').trigger('playFirst');
     }, this);
-
   }
 
 });
